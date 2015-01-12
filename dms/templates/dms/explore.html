@@ -1,0 +1,49 @@
+
+<title>Explore Documents</title>
+
+<form action="/dms/search/{{ folder_id }}/" method='post'>{% csrf_token %}
+{{search_form}}
+<input type="submit" value=" Search ">
+</form>
+{% if fathers %}
+	<table>
+		<tr>
+			<td><a href="/dms/explore/">Root</a></td>
+			{% for f in fathers %}
+				<td>></td>
+				<td style="padding:0.15em"><a href="/dms/explore/{{ f.id }}">{{ f.folder_name }}  </a></td>
+			{% endfor %}
+		</tr>
+	</table>
+{% else %}
+	<p>This is the ROOT</p>
+{% endif %}
+
+{% if children %}
+	<ul>
+	{% for child in children %}
+		<li><a href="/dms/explore/{{ child.id }}">{{child.folder_name}}</a></li>
+	{% endfor %}
+
+{% else %}
+	<p>There are no Folders in this Folder</p>
+{% endif %}
+{% if files %}
+		
+		<ul>
+			{% for file in files %}
+				<li><a href="/documents/{{file.uploaded_file}}">{{file.filename}}</a></li>
+			{% endfor %}
+		</ul>
+
+{% else %}
+	</ul>
+	<p>There are no files in this Folder</p>
+		
+{% endif %}
+	</ul>
+	<tr>
+		<td><a href="/dms/addfolder/{{folder_id}}/">Add Folder</a></td>
+		<td><a href="/dms/addfile/{{folder_id}}/">Add File</a></td>
+		<td><a href="/dms/sync/{{folder_id}}/">Sync</a></td>
+	</tr>

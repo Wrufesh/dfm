@@ -1,0 +1,20 @@
+{% if sr_folders %}
+	<ul>
+	{% for r in sr_folders %}
+		<li><a href="/dms/explore/{{ r.id }}/">{{ r.folder_name }}</a></li>
+	{% endfor %}
+	</ul>
+{% else %}
+<p>No Folders Found containing {{ keyword }}</p>
+{% endif %}
+
+{% if sr_files %}
+	<ul>
+	{% for rf in sr_files %}
+		<li><a href="/documents/{{rf.uploaded_file}}">{{ rf.filename }}</a></li>
+	{% endfor %}
+	</ul>
+{% else %}
+<p>No Files Found containing {{ keyword }}</p>
+{% endif %}
+
